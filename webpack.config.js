@@ -7,7 +7,7 @@ const miniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     mode: "production",
     entry: {
-        index: resolve(__dirname, "./src/js/index.js"),
+        index: [resolve(__dirname, "./src/js/index.js")],
     },
     output: {
         path: resolve(__dirname + "/dist"),
@@ -15,12 +15,14 @@ module.exports = {
     },
     module: {
         rules: [{
+                test: /\.txt$/,
+                loader: "raw-loader",
+                include: resolve(__dirname, "src/text")
+            },
+            {
                 test: /\.js$/,
                 loader: "babel-loader",
                 exclude: resolve(__dirname, "node_modules"),
-                query: {
-                    "presets": ['latest']
-                }
             },
             {
                 test: /\.tpl$/,
@@ -67,9 +69,11 @@ module.exports = {
             template: resolve(__dirname, 'src/index.html'),
             title: "模板首页",
             chunksSortMode: "manual",
-            chunks: ["index"],
+            chunks: ["common", "index"],
             excloudeChunks: ["node_modules"],
-            hash: true
+            hash: true,
+            ie8: true,
+
         }),
         new miniCssExtractPlugin({
             filename: "css/[name].css"

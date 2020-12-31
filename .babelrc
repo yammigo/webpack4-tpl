@@ -1,0 +1,27 @@
+{
+  "presets": [
+    [
+    "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "targets": {
+          
+          "ie": "9"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": false,
+        "helpers": true,
+        "regenerator": true,
+        "useESModules": false,
+        "useBuildIns":"usage"//按需引入,即使用什么新特性打包什么新特性, 可以减小打包的体积
+      }
+    ]
+  ]
+}
